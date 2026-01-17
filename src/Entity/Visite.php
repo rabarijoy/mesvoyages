@@ -17,8 +17,8 @@ class Visite
     #[ORM\Column(length: 50)]
     private ?string $ville = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
-    private ?\DateTime $pays = null;
+    #[ORM\Column(length: 50, nullable: true)]
+    private ?string $pays = null;
 
     #[ORM\Column(nullable: true)]
     private ?int $note = null;
@@ -31,6 +31,9 @@ class Visite
 
     #[ORM\Column(nullable: true)]
     private ?int $tempmax = null;
+
+    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
+    private ?\DateTime $datecreation = null;
 
     public function getId(): ?int
     {
@@ -49,12 +52,12 @@ class Visite
         return $this;
     }
 
-    public function getPays(): ?\DateTime
+    public function getPays(): ?string
     {
         return $this->pays;
     }
 
-    public function setPays(?\DateTime $pays): static
+    public function setPays(?string $pays): static
     {
         $this->pays = $pays;
 
@@ -107,5 +110,25 @@ class Visite
         $this->tempmax = $tempmax;
 
         return $this;
+    }
+
+    public function getDatecreation(): ?\DateTime
+    {
+        return $this->datecreation;
+    }
+
+    public function setDatecreation(?\DateTime $datecreation): static
+    {
+        $this->datecreation = $datecreation;
+
+        return $this;
+    }
+    public function getDatecreationString() : string 
+    {
+        if ($this->datecreation == null) {
+            return "";
+        }else{
+            return $this->datecreation->format('d/m/Y');
+        }
     }
 }
