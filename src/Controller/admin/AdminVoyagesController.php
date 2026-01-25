@@ -9,7 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-
+use App\Entity\Visite;
 
 class AdminVoyagesController extends AbstractController {
     
@@ -72,5 +72,22 @@ class AdminVoyagesController extends AbstractController {
             $this->repository->remove($visite);
         }
         return $this->redirectToRoute('admin.voyages');
+    }
+    #[Route('/admin/ajout', name: 'admin.voyage.ajout')]
+    public function ajout(Request $request): Response{
+        $visite = new Visite();
+        $formVisite = $this->createForm(VisiteType::class, $visite);
+        $formVisite->handleRequest($request);
+        
+        if ($formVisite->isSubmitted() && $formVisite->isValid()) {
+            $this->entityManager->persist($visite);
+            $this->entityManager->flush();
+            return $this->redirectToRoute('admin.voyages');
+        }
+
+        return $this->render("admin/admin.voyage.ajout.html.twig", [
+            'visite' => $visite,
+            'formvisite' => $formVisite->createView()
+        ]);
     }
 }
