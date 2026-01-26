@@ -9,6 +9,8 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use DateTime;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use App\Entity\Environnement;
 
 class VisiteType extends AbstractType
 {
@@ -29,6 +31,12 @@ class VisiteType extends AbstractType
                 'widget' => 'single_text',
                 'data' => isset($options['data']) && $options['data'] !== null && $options['data']->getDatecreation() !== null ? $options['data']->getDatecreation() : new DateTime('now'),
                 'label' => 'date'
+            ])
+            ->add('environnements', EntityType::class, [
+                'class' => Environnement::class,
+                'choice_label' => 'nom',
+                'multiple' => true,
+                'required' => false
             ])
             ->add('submit', SubmitType::class, [
                 'label' => 'Enregistrer'
