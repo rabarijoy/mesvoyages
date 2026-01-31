@@ -23,6 +23,11 @@
 
         <div class="col">
             <!-- emplacement image -->
+            <div>{{ form_row(formvisite.imageFile) }}</div>
+            <div>
+                image actuelle :
+                <img src="/mesvoyages/public/images/visites/{{ visite.imageName }}" class="card-img-top" style="width:100%;height:auto;">
+            </div>
         </div>
     </div>
 

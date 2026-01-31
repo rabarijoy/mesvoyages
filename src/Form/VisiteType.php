@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use DateTime;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use App\Entity\Environnement;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 
 class VisiteType extends AbstractType
 {
@@ -36,6 +37,10 @@ class VisiteType extends AbstractType
                 'class' => Environnement::class,
                 'choice_label' => 'nom',
                 'multiple' => true,
+                'required' => false
+            ])
+            ->add('imageFile', FileType::class, [
+                'label' => 'sélectionner une image',
                 'required' => false
             ])
             ->add('submit', SubmitType::class, [
