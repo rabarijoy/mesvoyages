@@ -1,0 +1,11 @@
+{
+  "name": "mesvoyages",
+  "version": "1.0.0",
+  "description": "Mes Voyages - Symfony project",
+  "private": true,
+  "scripts": {
+    "dev": "echo 'Assets gérés par Symfony Asset Mapper'",
+    "build": "echo 'Build optionnel'"
+  },
+  "devDependencies": {}
+}

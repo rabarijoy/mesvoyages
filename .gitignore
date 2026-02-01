@@ -19,3 +19,10 @@
 /assets/vendor/
 ###< symfony/asset-mapper ###
 /nbproject/private/
+
+###> node ###
+/node_modules/
+/npm-debug.log*
+/yarn-error.log*
+/.npm
+###< node ###
