@@ -12,6 +12,7 @@ use DateTime;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use App\Entity\Environnement;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 
 class VisiteType extends AbstractType
 {
@@ -20,7 +21,12 @@ class VisiteType extends AbstractType
         $builder
             ->add('ville')
             ->add('pays')
-            ->add('note')
+            ->add('note', IntegerType::class, [
+                'attr' => [
+                    'min' => 0,
+                    'max' => 20
+                ]
+            ])
             ->add('avis')
             ->add('tempmin', null, [
                 'label' => 't° min'
@@ -40,7 +46,7 @@ class VisiteType extends AbstractType
                 'required' => false
             ])
             ->add('imageFile', FileType::class, [
-                'label' => 'sélectionner une image',
+                'label' => 'sélection image',
                 'required' => false
             ])
             ->add('submit', SubmitType::class, [

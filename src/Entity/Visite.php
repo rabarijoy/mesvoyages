@@ -29,6 +29,7 @@ class Visite
     private ?string $pays = null;
 
     #[ORM\Column(nullable: true)]
+    #[Assert\Range(min: 0, max: 20)]
     private ?int $note = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
@@ -44,7 +45,6 @@ class Visite
     private ?\DateTime $datecreation = null;
 
     #[Vich\UploadableField(mapping: 'visites', fileNameProperty: 'imageName', size: 'imageSize')]
-    #[Assert\Image(mimeTypes: [image/jpeg])]
     private ?File $imageFile = null;
 
     #[ORM\Column(nullable: true)]
@@ -226,7 +226,14 @@ class Visite
         if($file != null && $file != ""){
             $poids = $filesize($file);
             if($poids != false && $poids > 512000){
-                $context->buildViolation("Le fichier est trop gros")
+                $context->buildViolation("Le fichier est trop lourd (512Ko max)")
+                ->atPath('imageFile')
+                ->addViolation();
+            }
+            $type = $file->getMimeType();
+            $infosImage = getimagesize($file);
+            if($infosIamge == false){
+                $context->buildViolation("Le fichier n'est pas une image")
                 ->atPath('imageFile')
                 ->addViolation();
             }
